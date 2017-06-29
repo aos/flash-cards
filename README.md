@@ -1,18 +1,11 @@
-# flash-cards
+# Flash Cards
 
-> A flash cards app built using Vue.js
+### Currently under major construction!
 
-## Build Setup
+> A flash cards app being built with Mongo, Express, Vue, Node
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Why?
+The purpose of this project is two-fold:
+1. To learn MEVN, as part of becoming a full-stack developer.
+2. To be able to create and store flash cards online, as part of my note-taking process in studying CS.  
+(I realize I can use Anki, but that defeats the purpose of #1.) 
