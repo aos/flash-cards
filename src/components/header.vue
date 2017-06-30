@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Nav -->
-    <div class="nav" id="header">
+    <div class="nav has-shadow" id="header">
       <div class="nav-left">
         <a href="#" class="nav-item">
           <h3>Cards.io</h3>

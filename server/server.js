@@ -5,13 +5,16 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 
 const app = express();
-const dist = path.join(__dirname, './dist')
+const dist = path.join(__dirname, '../dist')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname + './dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
-// Database
+/**
+ *  Database
+**/ 
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017', (err) => {
   if (err) console.log('DB connection error:', err);
@@ -19,8 +22,12 @@ mongoose.connect('mongodb://localhost:27017', (err) => {
 })
 
 const User = require('./models/User');
+const Card = require('./models/Card');
 
-// Passport
+/**
+ * Passport
+**/
+
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy
@@ -37,6 +44,29 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy({
+// passport.use(new LocalStrategy({
   
-}))
+// }))
+
+/**
+ *  Routes
+**/
+
+const api = require('./api');
+
+app.get('/logout', (req, res, next) => {
+  req.logout();
+  res.redirect('/');
+})
+
+app.use('/api', api);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(dist, 'index.html'));
+})
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Express server listening on port ${port}...`)
+})

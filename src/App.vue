@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <!--<manage></manage>-->
-    <card></card>
+    <router-view></router-view>
   </div>
 </template>
 
