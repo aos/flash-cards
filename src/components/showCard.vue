@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="container centered bottom-buttons">
-      <a class="button is-medium is-info" v-on:click="flipCard">⇆ Flip Card</a>
+      <a class="button is-medium is-info" v-on:click.prevent="flipCard">⇆ Flip Card</a>
       <a href="#" class="button is-medium is-success">✓ I Know It!</a>
       <a href="#" class="button is-medium is-warning">Next Card →</a>
     </div>
@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     flipCard(e) {
-      e.preventDefault();
       this.flipped = !this.flipped;
     }
   }

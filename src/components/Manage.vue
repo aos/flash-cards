@@ -1,27 +1,15 @@
 <template>
-  <div id="main" class="section">
-    <section class="hero is-light">
-      <div class="hero-body">
-        <h2 class="title">
-          Add a Card
-        </h2>
-        <div class="block">
-          <div class="field has-addons">
-            <p class="control">
-              <a href="#" class="button is-medium is-outlined is-dark">General</a>
-            </p>
-            <p class="control">
-              <a href="#" class="button is-medium is-outlined is-dark">Code</a>
-            </p>
-          </div>
+  <div id="main">
+    <section class="section">
+      <div class="hero is-light">
+        <div class="hero-body has-text-centered">
+          <a href="/add" class="button is-large is-outlined is-dark">Add a Card</a>
         </div>
       </div>
     </section>
     <section class="section">
-      <div class="container">
-        <h1 class="title">{{cards.length}} Cards</h1>
-        <hr>
-      </div>
+      <h1 class="title">{{cards.length}} Cards</h1>
+      <hr>
     </section>
   </div>
 </template>
@@ -35,12 +23,14 @@ export default {
     return {
       cards: []
     }
+  },
+  methods: {
   }
 }
 </script>
 
 <style scoped>
-#card {
-  margin-top: auto;
+.section {
+  padding: 20px;
 }
 </style>

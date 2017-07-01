@@ -3,7 +3,7 @@
     <!-- Nav -->
     <div class="nav has-shadow" id="header">
       <div class="nav-left">
-        <a href="#" class="nav-item">
+        <a href="/" class="nav-item">
           <h3>Cards.io</h3>
         </a>
       </div>

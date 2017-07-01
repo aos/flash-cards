@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 **/ 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017', (err) => {
+mongoose.connect('mongodb://localhost:27017/cards', (err) => {
   if (err) console.log('DB connection error:', err);
   else console.log('DB connection successful')
 })
