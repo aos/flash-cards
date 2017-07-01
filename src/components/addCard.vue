@@ -2,20 +2,20 @@
   <div id="add-card container">
     <div class="section">
       <h2 class="title">Add a Card</h2>
-      <form v-if="!preview">
+      <form v-if="!preview" @submit.prevent="addCard">
         <div class="field">
           <label class="label">Front</label>
-          <input class="input" type="text" v-model.lazy="card.front" required>
+          <input class="input" name="front" type="text" v-model.lazy="card.front" required>
         </div>
         <div class="field">
           <label class="label">Back</label>
-          <textarea class="textarea" v-model.lazy="card.back" required></textarea>
+          <textarea class="textarea" name="back" v-model.lazy="card.back" required></textarea>
         </div>
         <div>
-          <a class="button" :class="{'is-dark' : card.code}" @click="isCode">Code</a>
+          <a class="button" :class="{'is-dark' : card.code}" @click="card.code = !card.code">Code</a>
         </div>
         <hr>
-        <button class="button is-medium is-success" @click.prevent="submit">Add Card</button>
+        <input type="submit" class="button is-medium is-success" value="Add Card">
         <button class="button is-medium is-light is-pulled-right" @click.prevent="showPreview">Preview</button>
       </form>
     </div>
@@ -30,10 +30,10 @@
       </div>
       <div class="field">
         <label class="label">Back</label>
-        <pre v-if="card.code"><code>{{card.back}}</code></pre>
+        <pre v-if="card.code"><code class="preserve-ws">{{card.back}}</code></pre>
         <article v-else class="message is-info">
           <div class="message-body">
-            <p style="white-space: pre-wrap; color: #000;">{{card.back}}</p>
+            <p style="color: #000;" class="preserve-ws">{{card.back}}</p>
           </div>
         </article>
       </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   data() {
@@ -53,15 +54,25 @@ export default {
         back: '',
         code: false
       },
-      preview: false
+      preview: false,
+      submitted: false
     }
   },
   methods: {
-    isCode() {
-      this.card.code = !this.card.code;
-    },
     showPreview() {
       this.preview = !this.preview;
+    },
+    addCard() {
+      console.log('here');
+      axios.post('http://localhost:3000/api/add', this.card)
+      .then(
+        (data) => {
+          this.submitted = true;
+        },
+        (err) => {
+          console.error(err);
+        }
+      )
     }
   },
   filters: {
@@ -70,9 +81,14 @@ export default {
 </script>
 
 <style scoped>
+.preserve-ws {
+  white-space: pre-wrap;
+}
+
 .message-header {
   color: #000;
   background: #FCFCFC;
+  border: #000 1px dashed;
 }
 .is-info {
   color: #000;

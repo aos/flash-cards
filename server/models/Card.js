@@ -3,11 +3,19 @@ const mongoose = require('mongoose');
 const CardSchema = new mongoose.Schema({
   front: {
     type: String,
-    required: 'You must supply a username!',
+    required: 'Front of card is required!',
   },
   back: {
     type: String,
     required: 'Back of card is required!'
+  },
+  code: {
+    type: Boolean,
+    default: false
+  },
+  known: {
+    type: Boolean,
+    default: false
   },
   created: {
     type: Date,
@@ -17,8 +25,8 @@ const CardSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  tags: {
-    type: [String]
+  author: {
+    type: String
   }
 })
 

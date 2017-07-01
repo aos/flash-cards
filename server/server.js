@@ -54,6 +54,13 @@ app.use(passport.session());
 
 const api = require('./api');
 
+// For testing API locally
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+})
+
 app.get('/logout', (req, res, next) => {
   req.logout();
   res.redirect('/');
