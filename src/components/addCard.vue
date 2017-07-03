@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   data() {
@@ -63,8 +62,7 @@ export default {
       this.preview = !this.preview;
     },
     addCard() {
-      console.log('here');
-      axios.post('http://localhost:3000/api/add', this.card)
+      this.$http.post('http://localhost:3000/api/add', this.card)
       .then(
         (data) => {
           this.submitted = true;
