@@ -10,4 +10,21 @@ router.post('/add', (req, res) => {
   })
 })
 
+// View a card
+router.get('/card/:id', (req, res) => {
+  Card.findOne({_id: req.params.id}, 
+    (err, result) => {
+      if (err) return console.log(err);
+      return res.send(result);
+  })
+})
+
+// All cards
+router.get('/all', (req, res) => {
+  Card.find((err, results) => {
+    if (err) return console.log(err);
+    return res.send(results);
+  });
+});
+
 module.exports = router;

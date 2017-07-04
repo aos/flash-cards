@@ -63,14 +63,10 @@ export default {
     },
     addCard() {
       this.$http.post('http://localhost:3000/api/add', this.card)
-      .then(
-        (data) => {
-          this.submitted = true;
-        },
-        (err) => {
-          console.error(err);
-        }
-      )
+      .then((data) => {
+        this.submitted = true
+      })
+      .catch(err => console.log(err));
     }
   },
   filters: {

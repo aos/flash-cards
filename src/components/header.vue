@@ -8,6 +8,13 @@
         </a>
       </div>
 
+      <!-- Center icons -->
+      <div class="nav-center">
+        <a href="#" class="nav-item">General</a>
+        <a href="#" class="nav-item">Code</a>
+        <a href="#" class="nav-item">Random</a>
+      </div>
+
       <!-- Hamburger menu on collapse-->
       <span class="nav-toggle" @click="toggleClass">
         <span></span>
@@ -28,7 +35,7 @@
 export default {
   data() {
     return {
-      isActive: '',
+      isActive: false,
     }
   },
   methods: {

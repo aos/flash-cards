@@ -10,6 +10,20 @@
     <section class="section">
       <h1 class="title">{{cards.length}} Cards</h1>
       <hr>
+      <article v-for="card in cards" class="media">
+        <figure class="media-left">
+          <p class="image is-32x32">
+            <img src="http://bulma.io/images/placeholders/64x64.png">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p><strong>{{card.front}}</strong></p>
+            <p>{{card.back | snippet}}</p>
+          </div>
+        </div>
+      </article>
+      </ul>
     </section>
   </div>
 </template>
@@ -25,6 +39,20 @@ export default {
     }
   },
   methods: {
+  },
+  created() {
+    this.$http.get('http://localhost:3000/api/all')
+    .then((cards) => {
+      this.cards = cards.data;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }, 
+  filters: {
+    snippet(value) {
+      return (value.length >= 100 ? value.slice(0, 100) + '...': value.slice(0, 100));
+    }
   }
 }
 </script>
