@@ -1,14 +1,14 @@
 <template>
   <div id="add-card container">
     <div v-if="submitted" class="section has-text-centered" id="submitted">
-      <h1 class="title">Added!</h1>
-      <a :href="'/card/' + added_card._id">
+      <h1 class="title">Successfully edited card!</h1>
+      <a :href="'/card/' + edited_card._id">
         <button class="button is-outlined is-medium is-info">Go to Card</button>  
       </a>
     </div>
     <div v-if="!submitted" class="section">
-      <h2 class="title">Add a Card</h2>
-      <form v-if="!preview" @submit.prevent="addCard">
+      <h2 class="title">Edit Card</h2>
+      <form v-if="!preview" @submit.prevent="editCard">
         <div class="field">
           <label class="label">Front</label>
           <input class="input" name="front" type="text" v-model.lazy="card.front" required>
@@ -21,7 +21,7 @@
           <a class="button" :class="{'is-dark' : card.code}" @click="card.code = !card.code">Code</a>
         </div>
         <hr>
-        <input type="submit" class="button is-medium is-success" value="Add Card">
+        <input type="submit" class="button is-medium is-success" value="Edit Card">
         <button class="button is-medium is-light is-pulled-right" @click.prevent="showPreview">Preview</button>
       </form>
     </div>
@@ -54,28 +54,31 @@
 export default {
   data() {
     return {
-      card: {
-        front: '',
-        back: '',
-        code: false
-      },
+      card: {},
       preview: false,
       submitted: false,
-      added_card: {}
+      edited_card: {}
     }
   },
   methods: {
     showPreview() {
       this.preview = !this.preview;
     },
-    addCard() {
-      this.$http.post('http://localhost:3000/api/add', this.card)
+    editCard() {
+      this.$http.put(`http://localhost:3000/api/card/${this.$route.params.id}/edit`, this.card)
       .then((result) => {
-        this.added_card = result.data;
+        this.edited_card = result.data;
         this.submitted = true;
       })
       .catch(err => console.log(err));
     }
+  },
+  created() {
+    this.$http.get(`http://localhost:3000/api/card/${this.$route.params.id}`)
+    .then((result) => {
+      this.card = result.data;
+    })
+    .catch((err) => console.log(err));
   },
   filters: {
   }
