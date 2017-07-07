@@ -1,10 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
-process.traceDeprecation = true;
-
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/client/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

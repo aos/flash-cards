@@ -16,16 +16,16 @@
       </div>
 
       <!-- Hamburger menu on collapse-->
-      <span class="nav-toggle" @click="toggleClass">
+      <span id="burger-collapse" class="nav-toggle" @click="toggleClass">
         <span></span>
         <span></span>
         <span></span>
       </span>
   
       <!-- Menu inside hamburger -->
-      <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive}">
-        <a href="" class="nav-item">Sign in</a>
-        <a href="" class="nav-item">Register</a>
+      <div id="burger" class="nav-right nav-menu">
+        <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
+        <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
       </div>
     </div>
   </div>
@@ -39,9 +39,9 @@ export default {
     }
   },
   methods: {
-    toggleClass(e) {
-      e.target.classList.toggle('is-active');
-      this.isActive = !this.isActive;
+    toggleClass() {
+      document.getElementById('burger').classList.toggle('is-active');
+      document.getElementById('burger-collapse').classList.toggle('is-active');
     }
   },
   computed: {

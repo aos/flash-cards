@@ -7,8 +7,8 @@ router.post('/add', (req, res) => {
   Card.create(req.body)
   .then((data) => {
     res.send(data);
-  })
-})
+  });
+});
 
 // View a card
 router.get('/card/:id', (req, res) => {
@@ -17,7 +17,7 @@ router.get('/card/:id', (req, res) => {
     return res.send(result);
   })
   .catch((err) => console.log(err));
-})
+});
 
 // Edit a card
 router.put('/card/:id/edit', (req, res) => {
@@ -26,9 +26,9 @@ router.put('/card/:id/edit', (req, res) => {
     Card.findOne({_id: req.params.id})
     .then((result) => {
       res.send(result);
-    })
-  })
-})
+    });
+  });
+});
 
 // Receive 5 latest cards (for viewing) *** NOT USED ***
 router.get('/latest', (req, res) => {
@@ -37,7 +37,7 @@ router.get('/latest', (req, res) => {
     return res.send(result);
   })
   .catch((err) => console.log(err));
-})
+});
 
 // All cards
 router.get('/all', (req, res) => {
