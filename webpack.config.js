@@ -1,5 +1,8 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
+
+const APP_DIR = path.resolve(__dirname, 'src/client');
+const DIST_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: './src/client/main.js',

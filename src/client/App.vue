@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <main>
-      <router-view></router-view>
-    </main>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -16,8 +14,10 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created() {
+    this.$store.dispatch('getAllCards');
   }
 }
 </script>

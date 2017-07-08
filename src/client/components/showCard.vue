@@ -1,19 +1,6 @@
 <template>
   <div>
-    <div class="tabs is-centered is-toggle">
-      <ul>
-        <li v-bind:class="{'is-active': general_card}">
-          <a href="#" class="is-medium">General</a>
-        </li>
-        <li v-bind:class="{'is-active': code_card}">
-          <a href="#" class="is-medium">Code</a>
-        </li>
-        <li v-bind:class="{'is-active': random_card}">
-          <a href="#" class="is-medium">Random</a>
-        </li>
-      </ul>
-      <hr>
-    </div>
+    <br>
     <div v-if="flipped" class="container">
       <div class="box">
         <pre v-if="card.code"><code class="preserve-ws">{{card.back}}</code></pre>
@@ -41,8 +28,6 @@
 export default {
   data() {
     return {
-      id: this.$route.params.id,
-      card: {},
       flipped: false,
       general_card: false,
       code_card: true,
@@ -50,21 +35,19 @@ export default {
     }
   },
   computed: {
+    card() {
+      return this.$store.getters.cardById(this.$route.params.id);
+    }
   },
   methods: {
   },
   created() {
-    this.$http.get(`http://localhost:3000/api/card/${this.id}`)
-    .then((result) => {
-      this.card = result.data;
-    })
-    .catch(err => console.log(err));
+    this.card = this.$store.getters.cardById(this.$route.params.id);
   }
 }
 </script>
 
 <style scoped>
-
 .tabs {
   margin-top: 20px;
 }

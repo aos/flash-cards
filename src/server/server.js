@@ -5,11 +5,11 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 
 const app = express();
-const dist = path.join(__dirname, '../dist')
+const dist = path.resolve(__dirname, '../../dist');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../../dist')));
 
 /**
  *  Database
@@ -85,7 +85,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   next();
-})
+});
 
 // Handle logout
 app.get('/logout', (req, res, next) => {
@@ -98,7 +98,6 @@ app.post('/register', (req, res, next) => {
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (user) {
-        console.log('Here');
         return res.redirect('/login');
       }
       else {
@@ -112,6 +111,7 @@ app.post('/register', (req, res, next) => {
         });
       }
     })
+    .catch((err) => console.log(err));
 });
 
 // Handle login
@@ -120,10 +120,13 @@ app.post('/login',
     failureRedirect: '/login'
   }),
   (req, res) => {
-    console.log(req.user);
     res.redirect('/');
   }
 );
+
+app.get('/auth/isauth', (req, res) => {
+  return res.send(req.user);
+});
 
 app.use('/api', api);
 
@@ -135,4 +138,4 @@ const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}...`)
-})
+});

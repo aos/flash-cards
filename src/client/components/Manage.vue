@@ -42,25 +42,18 @@ export default {
   },
   data() {
     return {
-      cards: []
     }
   },
   computed: {
     limitTo5() {
       return this.cards.slice(0, 5);
+    },
+    cards() {
+      return this.$store.state.allCards;
     }
   },
   methods: {
   },
-  created() {
-    this.$http.get('http://localhost:3000/api/all')
-    .then((cards) => {
-      this.cards = cards.data;
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }, 
   filters: {
     snippet(value) {
       return (value.length >= 100 ? value.slice(0, 100) + '...': value.slice(0, 100));

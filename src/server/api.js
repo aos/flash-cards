@@ -7,7 +7,8 @@ router.post('/add', (req, res) => {
   Card.create(req.body)
   .then((data) => {
     res.send(data);
-  });
+  })
+  .catch((err) => console.log(err));
 });
 
 // View a card
@@ -26,8 +27,10 @@ router.put('/card/:id/edit', (req, res) => {
     Card.findOne({_id: req.params.id})
     .then((result) => {
       res.send(result);
-    });
-  });
+    })
+    .catch((err) => console.log(err));
+  })
+  .catch((err) => console.log(err));
 });
 
 // Receive 5 latest cards (for viewing) *** NOT USED ***

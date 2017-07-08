@@ -3,7 +3,7 @@
     <div v-if="submitted" class="section has-text-centered" id="submitted">
       <h1 class="title">Added!</h1>
       <a :href="'/card/' + added_card._id">
-        <button class="button is-outlined is-medium is-info">Go to Card</button>  
+        <button class="button is-outlined is-medium is-info">Go to Card</button>
       </a>
     </div>
     <div v-if="!submitted" class="section">
@@ -69,12 +69,12 @@ export default {
       this.preview = !this.preview;
     },
     addCard() {
-      this.$http.post('http://localhost:3000/api/add', this.card)
-      .then((result) => {
-        this.added_card = result.data;
+      this.$store.dispatch('addCard', this.card)
+      .then((card) => {
+        this.added_card = card;
         this.submitted = true;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
     }
   },
   filters: {
@@ -92,6 +92,7 @@ export default {
   background: #FCFCFC;
   border: #000 1px dashed;
 }
+
 .is-info {
   color: #000;
   background: #FCFCFC;
