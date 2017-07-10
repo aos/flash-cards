@@ -8,13 +8,6 @@
         </a>
       </div>
   
-      <!-- Center icons -->
-      <div v-if="user" class="nav-center">
-        <a href="#" class="nav-item">General</a>
-        <a href="#" class="nav-item">Code</a>
-        <a href="#" class="nav-item">Random</a>
-      </div>
-  
       <!-- Hamburger menu on collapse-->
       <span id="burger-collapse" class="nav-toggle" @click="toggleClass">
         <span></span>
@@ -24,9 +17,13 @@
   
       <!-- Menu inside hamburger -->
       <div id="burger" class="nav-right nav-menu">
-        <router-link v-if="!user" class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
-        <router-link v-if="!user" class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
-        <a href="/logout" v-if="user">Logout</a>
+        <div v-if="user">
+          <a href="/logout">Logout</a>
+        </div>
+        <div v-else>
+          <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
+          <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -41,6 +38,7 @@ export default {
   },
   computed: {
     user() {
+      console.log(this.$store.state.user);
       return this.$store.state.user;
     }
   },

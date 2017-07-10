@@ -7,7 +7,7 @@
       <br>
       <div v-if="flipped" class="container">
         <div class="box">
-          <pre v-if="card.back"><code class="preserve-ws">{{card.back}}</code></pre>
+          <pre v-if="card.code"><code class="preserve-ws">{{card.back}}</code></pre>
           <p class="preserve-ws center-vertical" v-else>{{card.back}}</p>
         </div>
       </div>

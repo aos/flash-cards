@@ -5,11 +5,19 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 
 const app = express();
-const dist = path.resolve(__dirname, '../../dist');
+const DIST = path.resolve(__dirname, '../../dist');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(express.static(DIST));
+
+// For testing API locally
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization', 'Origin, X-Requested-With, Accept, Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
 
 /**
  *  Database
@@ -77,16 +85,6 @@ passport.use(new LocalStrategy((username, password, done) => {
  *  Routes
 **/
 
-const api = require('./api');
-
-// For testing API locally
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-  next();
-});
-
 // Handle logout
 app.get('/logout', (req, res, next) => {
   req.logout();
@@ -120,6 +118,7 @@ app.post('/login',
     failureRedirect: '/login'
   }),
   (req, res) => {
+    console.log(req.user);
     res.redirect('/');
   }
 );
@@ -129,10 +128,10 @@ app.get('/auth/isauth', (req, res) => {
   return res.send(req.user);
 });
 
-app.use('/api', api);
+app.use('/api', require('./api'))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(dist, 'index.html'));
+  res.sendFile(path.join(DIST, 'index.html'));
 })
 
 const port = process.env.PORT || 3000;

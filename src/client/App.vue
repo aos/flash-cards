@@ -17,8 +17,10 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('getAllCards');
-    this.$store.dispatch('getUser');
+    this.$store.dispatch('getUser')
+      .then(() => {
+        this.$store.dispatch('getAllCards');
+      })
   }
 }
 </script>

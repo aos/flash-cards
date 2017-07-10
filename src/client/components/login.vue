@@ -29,13 +29,12 @@ export default {
   },
   methods: {
     login() {
-      this.$http.post('http://localhost:3000/login', this.user)
-      .then((res) => {
-        this.$router.push('/');
-      })
+      this.$store.dispatch('loginUser', this.user)
+        .then((result) => {
+          this.$router.push('/');
+        })
     }
   }
-
 }
 </script>
 
