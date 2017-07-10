@@ -124,6 +124,7 @@ app.post('/login',
   }
 );
 
+// Return user info
 app.get('/auth/isauth', (req, res) => {
   return res.send(req.user);
 });

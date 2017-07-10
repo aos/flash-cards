@@ -1,5 +1,13 @@
 import axios from 'axios'
 
+export const getUser = ({commit}) => {
+  axios.get('http://localhost:3000/auth/isauth')
+  .then((result) => {
+    commit('SAVE_AUTH', result.data);
+  })
+  .catch((err) => console.log(err));
+}
+
 export const getAllCards = ({ commit }) => {
   axios.get('http://localhost:3000/api/all')
     .then((result) => {

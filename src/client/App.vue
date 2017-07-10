@@ -18,6 +18,7 @@ export default {
   },
   created() {
     this.$store.dispatch('getAllCards');
+    this.$store.dispatch('getUser');
   }
 }
 </script>

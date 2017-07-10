@@ -7,5 +7,9 @@ export const mutations = {
 
   ['GET_ALL'](state, payload) {
     state.allCards = payload;
+  },
+
+  ['SAVE_AUTH'](state, payload) {
+    state.user = payload;
   }
 }

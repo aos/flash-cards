@@ -2,7 +2,7 @@
   <div id="login">
     <div class="section">
       <h2 class="title">Login</h2>
-      <form @submit.prevent="register">
+      <form @submit.prevent="login">
         <div class="field">
           <label class="label">Username</label>
           <input class="input" v-model="user.username" name="username" type="text" required>
@@ -28,10 +28,10 @@ export default {
     }
   },
   methods: {
-    register() {
+    login() {
       this.$http.post('http://localhost:3000/login', this.user)
       .then((res) => {
-        console.log('found user!');
+        this.$router.push('/');
       })
     }
   }
