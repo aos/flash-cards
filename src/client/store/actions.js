@@ -13,10 +13,10 @@ export const getUser = ({ commit }) => {
 }
 
 export const loginUser = ({commit}, payload) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     axios.post('http://localhost:3000/login', payload)
     .then((result) => {
-      console.log(result);
+      console.log(result.data, 'loginUser result.data');
       commit('LOGIN', result.data);
       resolve(result.data);
     })

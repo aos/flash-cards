@@ -27,6 +27,11 @@ export default {
       }
     }
   },
+  watch: {
+    password(password) {
+      this.login();
+    }
+  },
   methods: {
     login() {
       this.$store.dispatch('loginUser', this.user)

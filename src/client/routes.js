@@ -12,18 +12,20 @@ const checkAuth = (to, from, next) => {
   if (!store.state.user) {
     axios.get('http://localhost:3000/auth/isauth')
     .then((result) => {
-      console.log(result);
+      console.log(result, 'result for checkAuth');
       if (result.data) {
         store.state.user = result.data;
         next();
       }
       else {
+        console.log('false user on checkAuth')
         return false;
       }
     })
     .catch((err) => console.log(err)) 
   }
   else {
+    console.log(store.state.user, 'else in checkAuth');
     next();
   }
 }

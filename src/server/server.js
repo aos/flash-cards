@@ -7,17 +7,18 @@ const mongoose = require('mongoose');
 const app = express();
 const DIST = path.resolve(__dirname, '../../dist');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(DIST));
-
 // For testing API locally
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Authorization', 'Origin, X-Requested-With, Accept, Content-Type');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, X-Requested-With, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(DIST));
 
 /**
  *  Database
@@ -65,25 +66,26 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy((username, password, done) => {
   User.findOne({ username: username })
-  .then((user) => {
-    bcrypt.compare(password, user.password, (err, res) => {
-      if (err) return done(err);
-      if (res === false) {
-        return done(null, false);
-      }
-      else {
-        return done(null, user);
-      };
+    .then((user) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (err) return done(err);
+        if (res === false) {
+          return done(null, false);
+        }
+        else {
+          return done(null, user);
+        };
+      });
+    })
+    .catch((err) => {
+      return console.log(err);
     });
-  })
-  .catch((err) => {
-    return console.log(err);
-  });
 }));
 
 /**
  *  Routes
 **/
+
 
 // Handle logout
 app.get('/logout', (req, res, next) => {
@@ -118,13 +120,13 @@ app.post('/login',
     failureRedirect: '/login'
   }),
   (req, res) => {
-    console.log(req.user);
-    res.redirect('/');
+    return res.send(req.user);
   }
 );
 
 // Return user info
 app.get('/auth/isauth', (req, res) => {
+  console.log('auth/isauth', req.user);
   return res.send(req.user);
 });
 
