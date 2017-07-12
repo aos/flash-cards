@@ -10,7 +10,7 @@ Vue.prototype.$http = axios;
 Vue.use(VueRouter);
 
 // Vue Router
-const router = new VueRouter({
+export const router = new VueRouter({
   routes: Routes,
   mode: 'history'
 })
