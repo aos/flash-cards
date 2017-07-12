@@ -2,14 +2,14 @@
   <div id="login">
     <div class="section">
       <h2 class="title">Login</h2>
-      <form @submit.prevent="login">
+      <form method="POST" @submit.prevent="login">
         <div class="field">
           <label class="label">Username</label>
           <input class="input" v-model="user.username" name="username" type="text" required>
         </div>
         <div class="field">
           <label class="label">Password</label>
-          <input class="input" v-model="user.password" name="password" required></input>
+          <input type="password" class="input" v-model="user.password" name="password" required></input>
         </div>
         <input type="submit" class="button is-medium is-success" value="Login">
       </form>
@@ -27,17 +27,16 @@ export default {
       }
     }
   },
-  watch: {
-    password(password) {
-      this.login();
-    }
-  },
   methods: {
     login() {
-      this.$store.dispatch('loginUser', this.user)
-        .then((result) => {
-          this.$router.push('/');
-        })
+      const credentials = {
+        username: this.user.username,
+        password: this.user.password
+      }
+      this.$http.post('http://localhost:3000/login', credentials)
+      .then((result) => {
+        console.log(result, 'login success @ login.vue');
+      })
     }
   }
 }

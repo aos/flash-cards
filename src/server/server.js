@@ -120,13 +120,15 @@ app.post('/login',
     failureRedirect: '/login'
   }),
   (req, res) => {
-    return res.send(req.user);
+    console.log(req.user, 'this login worked');
+    return new Promise((resolve, reject) => {
+      resolve(req.user);
+    })
   }
 );
 
 // Return user info
 app.get('/auth/isauth', (req, res) => {
-  console.log('auth/isauth', req.user);
   return res.send(req.user);
 });
 

@@ -9,7 +9,7 @@
         </div>
         <div class="field">
           <label class="label">Password</label>
-          <input class="input" v-model="user.password" name="password" required></input>
+          <input type="password" class="input" v-model="user.password" name="password" required></input>
         </div>
         <input type="submit" class="button is-medium is-success" value="Register">
       </form>
@@ -31,7 +31,7 @@ export default {
     register() {
       this.$http.post('http://localhost:3000/register', this.user)
       .then((res) => {
-        console.log(res);
+        this.$router.go('/');
       })
     }
   }

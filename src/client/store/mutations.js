@@ -12,8 +12,4 @@ export const mutations = {
   ['SAVE_AUTH'](state, payload) {
     state.user = payload;
   },
-
-  ['LOGIN'](state, payload) {
-    state.user = payload;
-  }
 }

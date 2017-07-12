@@ -17,12 +17,12 @@
   
       <!-- Menu inside hamburger -->
       <div id="burger" class="nav-right nav-menu">
-        <div v-if="user">
-          <a href="/logout">Logout</a>
-        </div>
-        <div v-else>
+        <div v-if="!user">
           <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
           <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
+        </div>
+        <div v-else>
+          <a href="/logout">Logout</a>
         </div>
       </div>
     </div>
@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     user() {
-      console.log(this.$store.state.user);
       return this.$store.state.user;
     }
   },
@@ -47,8 +46,6 @@ export default {
       document.getElementById('burger').classList.toggle('is-active');
       document.getElementById('burger-collapse').classList.toggle('is-active');
     }
-  },
-  computed: {
   },
   created() {
   }
