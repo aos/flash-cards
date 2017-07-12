@@ -34,9 +34,8 @@ const User = require('./models/User');
 const Card = require('./models/Card');
 
 /**
- * Passport
+ * Passport -- Switching to JWT auth
 **/
-
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy
@@ -85,7 +84,6 @@ passport.use(new LocalStrategy((username, password, done) => {
 /**
  *  Routes
 **/
-
 
 // Handle logout
 app.get('/logout', (req, res, next) => {
