@@ -33,10 +33,11 @@ export default {
         username: this.user.username,
         password: this.user.password
       }
-      this.$http.post('http://localhost:3000/login', credentials)
+      this.$store.dispatch('loginUser', credentials)
       .then((result) => {
-        console.log(result, 'login success @ login.vue');
+        this.$router.push('/');
       })
+      .catch((err) => console.log(err));
     }
   }
 }

@@ -16,11 +16,10 @@ export default {
     return {
     }
   },
+  computed: {
+  },
   created() {
-    this.$store.dispatch('getUser')
-      .then(() => {
-        this.$store.dispatch('getAllCards');
-      })
+    this.$store.dispatch('checkAuth');    
   }
 }
 </script>

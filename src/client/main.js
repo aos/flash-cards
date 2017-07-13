@@ -15,6 +15,17 @@ export const router = new VueRouter({
   mode: 'history'
 })
 
+router.beforeEach((to, from, next) => {
+  const authRequired = to.matched.some((route) => route.meta.auth);
+  const authed = store.state.user.authenticated;
+  if (authRequired && !authed) {
+    next('/login')
+  }
+  else {
+    next();
+  }
+})
+
 new Vue({
   el: '#app',
   router,

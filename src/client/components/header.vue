@@ -3,9 +3,9 @@
     <!-- Nav -->
     <div class="nav has-shadow" id="header">
       <div class="nav-left">
-        <a href="/" class="nav-item">
-          <h3>Cards.io</h3>
-        </a>
+        <router-link class="nav-item" to="/">
+          <h3>Cards</h3>
+        </router-link>
       </div>
   
       <!-- Hamburger menu on collapse-->
@@ -17,12 +17,12 @@
   
       <!-- Menu inside hamburger -->
       <div id="burger" class="nav-right nav-menu">
-        <div v-if="!user">
-          <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
-          <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
+        <div v-if="isAuthenticated">
+          <a href="#" @click="logout" class="nav-item">Logout</a>
         </div>
         <div v-else>
-          <a href="/logout">Logout</a>
+          <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
+          <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
         </div>
       </div>
     </div>
@@ -37,14 +37,19 @@ export default {
     }
   },
   computed: {
-    user() {
-      return this.$store.state.user;
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {
     toggleClass() {
       document.getElementById('burger').classList.toggle('is-active');
       document.getElementById('burger-collapse').classList.toggle('is-active');
+    },
+    logout() {
+      this.$store.dispatch('logoutUser')
+      this.toggleClass()
+      this.$router.push('/');
     }
   },
   created() {

@@ -9,7 +9,13 @@ export const mutations = {
     state.allCards = payload;
   },
 
-  ['SAVE_AUTH'](state, payload) {
-    state.user = payload;
+  ['LOGIN_SUCCESS'](state, payload) {
+    state.user.user_id = payload;
+    state.user.authenticated = true;
   },
+
+  ['LOGOUT'](state) {
+    state.user.user_id = null;
+    state.user.authenticated = false;
+  }
 }
