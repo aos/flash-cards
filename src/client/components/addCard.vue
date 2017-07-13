@@ -57,7 +57,8 @@ export default {
       card: {
         front: '',
         back: '',
-        code: false
+        code: false,
+        author: ''
       },
       preview: false,
       submitted: false,
@@ -69,7 +70,13 @@ export default {
       this.preview = !this.preview;
     },
     addCard() {
-      this.$store.dispatch('addCard', this.card)
+      const newCard = {
+        front: this.card.front,
+        back: this.card.back,
+        code: this.card.code,
+        author: this.$store.state.user.user_id
+      }
+      this.$store.dispatch('addCard', newCard)
       .then((card) => {
         this.added_card = card;
         this.submitted = true;

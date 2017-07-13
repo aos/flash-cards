@@ -7,7 +7,10 @@ import * as actions from './actions';
 Vue.use(Vuex);
 
 const state = {
-  user: {},
+  user: {
+    user_id: '',
+    authenticated: false
+  },
   allCards: []
 };
 
@@ -18,6 +21,9 @@ export default new Vuex.Store({
   getters: {
     cardById: (state) => (id) => {
       return state.allCards.find((card) => card._id === id);
+    },
+    isAuthenticated: (state) => {
+      return state.user.authenticated;
     }
   }
 });

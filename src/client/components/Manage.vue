@@ -1,35 +1,51 @@
 <template>
   <div id="main">
-    <section class="section">
-      <div class="hero is-light">
-        <div class="hero-body has-text-centered">
-          <a href="/add" class="button is-large is-outlined is-dark">Add a Card</a>
+    <div v-if="!isAuthenticated">
+      <section class="section">
+        <div class="hero is-light">
+          <div class="hero-body has-text-centered">
+            <router-link class="button is-large is-outlined is-info" to="/login">Login</router-link>
+            <router-link class="button is-large is-outlined is-success" to="/register">Register</router-link>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="section">
-      <h1 class="title">{{cards.length}} Cards</h1>
-      <p class="subtitle">(Showing 5 latest)</p>
-      <hr>
-      <article v-for="card in limitTo5" class="media">
-        <figure class="media-left">
-          <p class="image is-32x32">
-            <a :href="'/card/' + card._id + '/edit'">
-              <img src="../assets/logo.png">
+      </section>
+    </div>
+    <div v-else>
+      <section class="section">
+        <div class="hero is-light">
+          <div class="hero-body has-text-centered">
+            <router-link class="button is-large is-outlined is-dark" to="/add">Add a Card
+            </router-link>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h1 class="title">{{cards.length}} Cards</h1>
+        <p class="subtitle">(Showing 5 latest)</p>
+        <hr>
+        <article v-for="card in limitTo5" class="media">
+          <figure class="media-left">
+            <p class="image is-32x32">
+              <a :href="'/card/' + card._id + '/edit'">
+                <img src="../assets/logo.png">
+              </a>
+            </p>
+          </figure>
+          <div class="media-content card-snippet">
+            <a :href="'/card/' + card._id">
+              <div class="content">
+                <p>
+                  <strong>{{card.front}} </strong>
+                  <span v-if="card.code" class="tag is-small is-black is-pulled-right">Code</span>
+                </p>
+                <p>{{card.back | snippet}}</p>
+              </div>
             </a>
-          </p>
-        </figure>
-        <div class="media-content card-snippet">
-          <a :href="'/card/' + card._id">
-            <div class="content">
-              <p><strong>{{card.front}} </strong><span v-if="card.code" class="tag is-small is-black is-pulled-right">Code</span></p>
-              <p>{{card.back | snippet}}</p>
-            </div>
-          </a>
-        </div>
-      </article>
-      </ul>
-    </section>
+          </div>
+        </article>
+        </ul>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -45,6 +61,9 @@ export default {
     }
   },
   computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
     limitTo5() {
       return this.cards.slice(0, 5);
     },
@@ -56,8 +75,10 @@ export default {
   },
   filters: {
     snippet(value) {
-      return (value.length >= 100 ? value.slice(0, 100) + '...': value.slice(0, 100));
+      return (value.length >= 100 ? value.slice(0, 100) + '...' : value.slice(0, 100));
     }
+  },
+  created() {
   }
 }
 </script>
@@ -67,6 +88,7 @@ export default {
   background: #f2f6ff;
   border-radius: 5%;
 }
+
 .section {
   padding: 20px;
 }

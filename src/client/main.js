@@ -10,9 +10,20 @@ Vue.prototype.$http = axios;
 Vue.use(VueRouter);
 
 // Vue Router
-const router = new VueRouter({
+export const router = new VueRouter({
   routes: Routes,
   mode: 'history'
+})
+
+router.beforeEach((to, from, next) => {
+  const authRequired = to.matched.some((route) => route.meta.auth);
+  const authed = store.state.user.authenticated;
+  if (authRequired && !authed) {
+    next('/login')
+  }
+  else {
+    next();
+  }
 })
 
 new Vue({

@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const expressJWT = require('express-jwt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const DIST = path.resolve(__dirname, '../../dist');
@@ -34,52 +36,9 @@ const User = require('./models/User');
 const Card = require('./models/Card');
 
 /**
- * Passport -- Switching to JWT auth
+ * User Auth
 **/
-const passport = require('passport');
-const session = require('express-session');
-const LocalStrategy = require('passport-local').Strategy
-const bcrypt = require('bcrypt');
-
-const MongoStore = require('connect-mongo')(session);
-
-app.use(session({
-  secret: 'baked bread',
-  resave: false,
-  saveUninitialized: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-})
-
-passport.deserializeUser((id, done) => {
-  User.findOne({ _id: id }, (err, user) => {
-    done(err, user);
-  });
-});
-
-passport.use(new LocalStrategy((username, password, done) => {
-  User.findOne({ username: username })
-    .then((user) => {
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (err) return done(err);
-        if (res === false) {
-          return done(null, false);
-        }
-        else {
-          return done(null, user);
-        };
-      });
-    })
-    .catch((err) => {
-      return console.log(err);
-    });
-}));
+app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({path:['/login', '/register']}));
 
 /**
  *  Routes
@@ -106,30 +65,38 @@ app.post('/register', (req, res, next) => {
         // Create new user
         newUser.save((err) => {
           if (err) return next(err);
-        });
+        })
+        .then((data) => {
+          const myToken = jwt.sign({username: data.username}, 'bakedbread 5 ever');
+          return res.json({username: data.username, user_id: data._id, token: myToken});
+        })
+        .catch(err => console.log(err));
       }
     })
     .catch((err) => console.log(err));
 });
 
 // Handle login
-app.post('/login',
-  passport.authenticate('local', {
-    failureRedirect: '/login'
-  }),
-  (req, res) => {
-    console.log(req.user, 'this login worked');
-    return new Promise((resolve, reject) => {
-      resolve(req.user);
-    })
+app.post('/login', (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send('Username and/or password required');
   }
-);
-
-// Return user info
-app.get('/auth/isauth', (req, res) => {
-  return res.send(req.user);
+  User.findOne({username: req.body.username})
+  .then((user) => {
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (err) return console.log(err);
+      if (!isMatch) {
+        return res.status(401).send('Invalid password');
+      }
+      else {
+        const myToken = jwt.sign({username: req.body.username}, 'bakedbread 5 ever');
+        return res.status(200).json({username: user.username, user_id: user._id, token: myToken});
+      }
+    })
+  })
 });
 
+// API routes
 app.use('/api', require('./api'))
 
 app.get('*', (req, res) => {

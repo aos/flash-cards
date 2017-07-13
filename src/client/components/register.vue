@@ -29,10 +29,11 @@ export default {
   },
   methods: {
     register() {
-      this.$http.post('http://localhost:3000/register', this.user)
-      .then((res) => {
-        this.$router.go('/');
+      this.$store.dispatch('registerUser', this.user)
+      .then((result) => {
+        this.$router.push('/');
       })
+      .catch((err) => console.log(err));
     }
   }
 
