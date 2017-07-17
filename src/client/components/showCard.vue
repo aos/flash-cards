@@ -18,11 +18,11 @@
       </div>
       <div class="container has-text-centered bottom-buttons">
         <a class="button is-medium is-info" @click.prevent="flipped = !flipped">⇆ Flip Card</a>
-        <a @click.prevent="card.known = !card.known" class="button is-medium" :class="card.known ? 'is-success' : 'is-light'">
+        <a @click.prevent="knowCard" class="button is-medium" :class="card.known ? 'is-success' : 'is-light'">
           <span v-if="card.known">✓ Known</span>
           <span v-else>I Know It!</span>
         </a>
-        <a href="#" class="button is-medium is-warning">Next Card →</a>
+        <router-link :to="'/card/' + this.$store.state.allCards[Math.floor(Math.random() * this.$store.getters.totalCards)]._id" class="button is-medium is-warning">Next Card →</router-link>
       </div>
     </div>
   </div>
@@ -45,6 +45,15 @@ export default {
     }
   },
   methods: {
+    knowCard() {
+      this.$http.put(`http://localhost:3000/api/card/${this.$route.params.id}/edit`, { known: (this.card.known ? false : true) }, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
+      })
+        .then((result) => {
+          this.card.known = result.data.known;
+        })
+        .catch(err => console.log(err));
+    }
   }
 }
 </script>

@@ -77,12 +77,12 @@ export const addCard = ({ commit }, payload) => {
 
 export const editCard = ({commit}, payload) => {
   return new Promise((resolve, reject) => {
-    
+
   })
 }
 
 export const knowCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-
+    axios.post('http://localhost:3000/api/:id')
   })
 }
