@@ -67,7 +67,7 @@ app.post('/register', (req, res, next) => {
           if (err) return next(err);
         })
           .then((data) => {
-            const myToken = jwt.sign({ username: data.username }, 'bakedbread 5 ever');
+            const myToken = jwt.sign({ user_id: data._id }, 'bakedbread 5 ever');
             return res.json({ username: data.username, user_id: data._id, token: myToken });
           })
           .catch(err => console.log(err));
@@ -93,7 +93,7 @@ app.post('/login', (req, res) => {
             return res.status(401).send('Invalid username and/or password');
           }
           else {
-            const myToken = jwt.sign({ username: req.body.username }, 'bakedbread 5 ever');
+            const myToken = jwt.sign({ user_id: user._id }, 'bakedbread 5 ever');
             return res.status(200).json({ username: user.username, user_id: user._id, token: myToken });
           }
         })

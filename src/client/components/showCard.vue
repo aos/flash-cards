@@ -17,12 +17,12 @@
         </div>
       </div>
       <div class="container has-text-centered bottom-buttons">
-        <a class="button is-medium is-info" @click.prevent="flipped = !flipped">⇆ Flip Card</a>
-        <a @click.prevent="knowCard" class="button is-medium" :class="card.known ? 'is-success' : 'is-light'">
+        <button class="button is-medium is-info" @click.prevent="flipped = !flipped">⇆ Flip Card</button>
+        <button @click.prevent="knowCard" class="button is-medium" :class="card.known ? 'is-success' : 'is-light'">
           <span v-if="card.known">✓ Known</span>
           <span v-else>I Know It!</span>
-        </a>
-        <router-link :to="'/card/' + this.$store.state.allCards[Math.floor(Math.random() * this.$store.getters.totalCards)]._id" class="button is-medium is-warning">Next Card →</router-link>
+        </button>
+        <button @click="nextCard" class="button is-medium is-warning" v-check>Next Card →</button>
       </div>
     </div>
   </div>
@@ -53,6 +53,27 @@ export default {
           this.card.known = result.data.known;
         })
         .catch(err => console.log(err));
+    },
+    nextCard() {
+      const allCards = this.$store.state.allCards;
+      const total = this.$store.getters.totalCards;
+      const next = allCards[Math.floor(Math.random() * total)];
+      if (this.flipped) {
+        this.flipped = false
+      }
+      if (this.$route.params.id === next._id) {
+        return nextCard();
+      }
+      return this.$router.push(`/card/${next._id}`);
+    }
+  },
+  directives: {
+    check: {
+      bind(el, binding, vnode) {
+        if (vnode.context.$store.getters.totalCards === 1) {
+          el.setAttribute("disabled", "");
+        }
+      }
     }
   }
 }
