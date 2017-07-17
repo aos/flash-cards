@@ -19,7 +19,15 @@ export default {
   computed: {
   },
   created() {
-    this.$store.dispatch('checkAuth');    
+    // Check for user
+    this.$store.dispatch('checkAuth')
+      .then((user_id) => {
+        console.log(typeof user_id);
+        if (user_id) {
+          this.$store.dispatch('getAllUserCards', {author: user_id});
+        }
+      })
+      .catch(err => console.log(err));
   }
 }
 </script>

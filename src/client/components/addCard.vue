@@ -2,9 +2,9 @@
   <div id="add-card container">
     <div v-if="submitted" class="section has-text-centered" id="submitted">
       <h1 class="title">Added!</h1>
-      <a :href="'/card/' + added_card._id">
+      <router-link :to="'/card/' + added_card._id">
         <button class="button is-outlined is-medium is-info">Go to Card</button>
-      </a>
+      </router-link>
     </div>
     <div v-if="!submitted" class="section">
       <h2 class="title">Add a Card</h2>
@@ -77,11 +77,11 @@ export default {
         author: this.$store.state.user.user_id
       }
       this.$store.dispatch('addCard', newCard)
-      .then((card) => {
-        this.added_card = card;
-        this.submitted = true;
-      })
-      .catch((err) => console.log(err));
+        .then((card) => {
+          this.added_card = card;
+          this.submitted = true;
+        })
+        .catch((err) => console.log(err));
     }
   },
   filters: {

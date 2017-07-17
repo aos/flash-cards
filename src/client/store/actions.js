@@ -26,8 +26,8 @@ export const loginUser = ({ commit }, payload) => {
 
 export const logoutUser = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('')
+    localStorage.removeItem('token_id');
+    localStorage.removeItem('user_id')
     commit('LOGOUT');
     resolve();
   })
@@ -43,12 +43,15 @@ export const checkAuth = ({ commit }) => {
     }
     else {
       commit('LOGOUT');
+      resolve(null);
     }
   })
 }
 
-export const getAllCards = ({ commit }) => {
-  axios.get('http://localhost:3000/api/all')
+export const getAllUserCards = ({ commit }, payload) => {
+  axios.post('http://localhost:3000/api/all', payload, {
+    headers: {'Authorization': `Bearer ${localStorage.getItem('token_id')}`}
+  })
     .then((result) => {
       commit('GET_ALL', result.data);
     })

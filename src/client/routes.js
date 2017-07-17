@@ -8,7 +8,7 @@ import register from './components/register.vue';
 
 export default [
   {path: '/', component: Manage},
-  {path: '/card/:id/edit', component: editCard, meta: {auth: true} },
+  {path: '/card/:id/edit', component: editCard },
   {path: '/card/:id', component: Card, meta: {auth: true} },
   {path: '/add', component: addCard, meta: {auth: true}},
   {path: '/login', component: login},

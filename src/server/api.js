@@ -43,9 +43,10 @@ router.get('/latest', (req, res) => {
 });
 
 // All cards
-router.get('/all', (req, res) => {
-  Card.find().sort({created: -1})
+router.post('/all', (req, res) => {
+  Card.find({author: req.body.author}).sort({created: -1})
   .then((results) => {
+    console.log(results);
     return res.send(results);
   })
   .catch((err) => console.log(err));

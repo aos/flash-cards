@@ -19,32 +19,39 @@
           </div>
         </div>
       </section>
-      <section class="section">
-        <h1 class="title">{{cards.length}} Cards</h1>
-        <p class="subtitle">(Showing 5 latest)</p>
-        <hr>
-        <article v-for="card in limitTo5" class="media">
-          <figure class="media-left">
-            <p class="image is-32x32">
-              <a :href="'/card/' + card._id + '/edit'">
-                <img src="../assets/logo.png">
-              </a>
-            </p>
-          </figure>
-          <div class="media-content card-snippet">
-            <a :href="'/card/' + card._id">
-              <div class="content">
-                <p>
-                  <strong>{{card.front}} </strong>
-                  <span v-if="card.code" class="tag is-small is-black is-pulled-right">Code</span>
-                </p>
-                <p>{{card.back | snippet}}</p>
-              </div>
-            </a>
-          </div>
-        </article>
-        </ul>
-      </section>
+      <div v-if="cards">
+        <section class="section">
+          <h1 class="title">{{cards.length}} Cards</h1>
+          <p class="subtitle">(Showing 5 latest)</p>
+          <hr>
+          <article v-for="card in limitTo5" class="media">
+            <figure class="media-left">
+              <p class="image is-32x32">
+                <router-link :to="'/card/' + card._id + '/edit'">
+                  <img src="../assets/logo.png">
+                </router-link>
+              </p>
+            </figure>
+            <div class="media-content card-snippet">
+              <router-link :to="'/card/' + card._id">
+                <div class="content">
+                  <p>
+                    <strong>{{card.front}} </strong>
+                    <span v-if="card.code" class="tag is-small is-black is-pulled-right">Code</span>
+                  </p>
+                  <p>{{card.back | snippet}}</p>
+                </div>
+              </router-link>
+            </div>
+          </article>
+          </ul>
+        </section>
+      </div>
+      <div v-else>
+        <h2>
+          Loading cards...
+        </h2>
+      </div>
     </div>
   </div>
 </template>
