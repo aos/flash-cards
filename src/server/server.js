@@ -38,7 +38,7 @@ const Card = require('./models/Card');
 /**
  * User Auth
 **/
-app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({path:['/login', '/register', '/card/:id/edit']}));
+app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/] }));
 
 /**
  *  Routes
@@ -66,11 +66,11 @@ app.post('/register', (req, res, next) => {
         newUser.save((err) => {
           if (err) return next(err);
         })
-        .then((data) => {
-          const myToken = jwt.sign({username: data.username}, 'bakedbread 5 ever');
-          return res.json({username: data.username, user_id: data._id, token: myToken});
-        })
-        .catch(err => console.log(err));
+          .then((data) => {
+            const myToken = jwt.sign({ username: data.username }, 'bakedbread 5 ever');
+            return res.json({ username: data.username, user_id: data._id, token: myToken });
+          })
+          .catch(err => console.log(err));
       }
     })
     .catch((err) => console.log(err));
@@ -81,19 +81,24 @@ app.post('/login', (req, res) => {
   if (!req.body.username || !req.body.password) {
     return res.status(400).send('Username and/or password required');
   }
-  User.findOne({username: req.body.username})
-  .then((user) => {
-    user.comparePassword(req.body.password, (err, isMatch) => {
-      if (err) return console.log(err);
-      if (!isMatch) {
-        return res.status(401).send('Invalid password');
+  User.findOne({ username: req.body.username })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).send('Invalid username and/or password')
       }
       else {
-        const myToken = jwt.sign({username: req.body.username}, 'bakedbread 5 ever');
-        return res.status(200).json({username: user.username, user_id: user._id, token: myToken});
+        user.comparePassword(req.body.password, (err, isMatch) => {
+          if (err) return console.log(err);
+          if (!isMatch) {
+            return res.status(401).send('Invalid username and/or password');
+          }
+          else {
+            const myToken = jwt.sign({ username: req.body.username }, 'bakedbread 5 ever');
+            return res.status(200).json({ username: user.username, user_id: user._id, token: myToken });
+          }
+        })
       }
     })
-  })
 });
 
 // API routes

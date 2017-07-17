@@ -2,9 +2,9 @@
   <div id="add-card container">
     <div v-if="submitted" class="section has-text-centered" id="submitted">
       <h1 class="title">Successfully edited card!</h1>
-      <a :href="'/card/' + edited_card._id">
+      <router-link :to="'/card/' + edited_card._id">
         <button class="button is-outlined is-medium is-info">Go to Card</button>  
-      </a>
+      </router-link>
     </div>
     <div v-if="!submitted" class="section">
       <h2 class="title">Edit Card</h2>
@@ -74,11 +74,7 @@ export default {
     }
   },
   created() {
-    this.$http.get(`http://localhost:3000/api/card/${this.$route.params.id}`)
-    .then((result) => {
-      this.card = result.data;
-    })
-    .catch((err) => console.log(err));
+    this.card = this.$store.getters.cardById(this.$route.params.id)
   },
   filters: {
   }

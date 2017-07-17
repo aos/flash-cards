@@ -35,7 +35,7 @@ export default {
       }
       this.$store.dispatch('loginUser', credentials)
       .then((result) => {
-        this.$router.push('/');
+        window.location = '/';
       })
       .catch((err) => console.log(err));
     }

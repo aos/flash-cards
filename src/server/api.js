@@ -22,15 +22,11 @@ router.get('/card/:id', (req, res) => {
 
 // Edit a card
 router.put('/card/:id/edit', (req, res) => {
-  Card.findByIdAndUpdate({_id: req.params.id}, req.body)
-  .then(() => {
-    Card.findOne({_id: req.params.id})
-    .then((result) => {
+  Card.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then((result) => {
       res.send(result);
     })
     .catch((err) => console.log(err));
-  })
-  .catch((err) => console.log(err));
 });
 
 // Receive 5 latest cards (for viewing) *** NOT USED ***
@@ -46,7 +42,6 @@ router.get('/latest', (req, res) => {
 router.post('/all', (req, res) => {
   Card.find({author: req.body.author}).sort({created: -1})
   .then((results) => {
-    console.log(results);
     return res.send(results);
   })
   .catch((err) => console.log(err));

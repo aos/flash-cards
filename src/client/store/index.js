@@ -24,6 +24,9 @@ export default new Vuex.Store({
     },
     isAuthenticated: (state) => {
       return state.user.authenticated;
+    },
+    totalCards: (state) => {
+      return state.allCards.length;
     }
   }
 });

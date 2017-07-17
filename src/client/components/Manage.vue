@@ -11,15 +11,16 @@
       </section>
     </div>
     <div v-else>
-      <section class="section">
-        <div class="hero is-light">
-          <div class="hero-body has-text-centered">
-            <router-link class="button is-large is-outlined is-dark" to="/add">Add a Card
-            </router-link>
+      <div v-if="cards.length">
+        <section class="section">
+          <div class="hero is-light">
+            <div class="hero-body has-text-centered">
+              <router-link class="button is-large is-outlined is-danger" :to="'/card/' + cards[Math.floor(Math.random() * cards.length)]._id">Run</router-link>
+              <router-link class="button is-large is-outlined is-dark" to="/add">Add Card
+              </router-link>
+            </div>
           </div>
-        </div>
-      </section>
-      <div v-if="cards">
+        </section>
         <section class="section">
           <h1 class="title">{{cards.length}} Cards</h1>
           <p class="subtitle">(Showing 5 latest)</p>
@@ -48,9 +49,7 @@
         </section>
       </div>
       <div v-else>
-        <h2>
-          Loading cards...
-        </h2>
+        <h3>Loading cards...</h3>
       </div>
     </div>
   </div>
@@ -72,10 +71,14 @@ export default {
       return this.$store.getters.isAuthenticated;
     },
     limitTo5() {
-      return this.cards.slice(0, 5);
+      return this.cards.reverse().slice(0, 5);
     },
     cards() {
       return this.$store.state.allCards;
+    },
+    randomCard() {
+      const length = this.$store.getters.totalCards;
+      return this.$store.state.allCards[Math.floor(Math.random() * length)]._id;
     }
   },
   methods: {

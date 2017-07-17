@@ -21,6 +21,9 @@ export const loginUser = ({ commit }, payload) => {
         commit('LOGIN_SUCCESS', result.data.user_id);
         resolve(result.data);
       })
+      .catch((err) => {
+        resolve(err);
+      })
   })
 }
 
@@ -69,6 +72,12 @@ export const addCard = ({ commit }, payload) => {
       resolve(result.data);
     })
     .catch((err) => console.log(err));
+  })
+}
+
+export const editCard = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    
   })
 }
 
