@@ -13,7 +13,7 @@ const DIST = path.resolve(__dirname, '../../dist');
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, X-Requested-With, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS, DELETE');
   res.header('Access-Control-Allow-Credentials', true);
   next();
 });
@@ -38,7 +38,7 @@ const Card = require('./models/Card');
 /**
  * User Auth
 **/
-app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/] }));
+app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/] }));
 
 /**
  *  Routes

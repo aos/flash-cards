@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-export const registerUser = ({commit}, payload) => {
+export const registerUser = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
     axios.post('http://localhost:3000/register', payload)
-    .then((result) => {
-      localStorage.setItem('user_id', result.data.user_id);
-      localStorage.setItem('token_id', result.data.token);
-      commit('LOGIN_SUCCESS', result.data.user_id);
-      resolve(result.data);
-    })
+      .then((result) => {
+        localStorage.setItem('user_id', result.data.user_id);
+        localStorage.setItem('token_id', result.data.token);
+        commit('LOGIN_SUCCESS', result.data.user_id);
+        resolve(result.data);
+      })
   })
 }
 
@@ -53,7 +53,7 @@ export const checkAuth = ({ commit }) => {
 
 export const getAllUserCards = ({ commit }, payload) => {
   axios.post('http://localhost:3000/api/all', payload, {
-    headers: {'Authorization': `Bearer ${localStorage.getItem('token_id')}`}
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
   })
     .then((result) => {
       commit('GET_ALL', result.data);
@@ -64,18 +64,32 @@ export const getAllUserCards = ({ commit }, payload) => {
 export const addCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
     axios.post('http://localhost:3000/api/add', payload,
-    {
-      headers: {'Authorization': `Bearer ${localStorage.getItem('token_id')}`}
-    })
-    .then((result) => {
-      commit('ADD_CARD', result.data);
-      resolve(result.data);
-    })
-    .catch((err) => console.log(err));
+      {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
+      })
+      .then((result) => {
+        commit('ADD_CARD', result.data);
+        resolve(result.data);
+      })
+      .catch((err) => console.log(err));
   })
 }
 
-export const editCard = ({commit}, payload) => {
+export const deleteCard = ({ commit }, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.delete(`http://localhost:3000/api/card/${payload}/delete`,
+      {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
+      })
+      .then((result) => {
+        commit('DELETE_CARD', result.data)
+        resolve(result.data)
+      })
+      .catch(err => console.log(err));
+  })
+}
+
+export const editCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
 
   })

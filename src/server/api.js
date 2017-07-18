@@ -29,6 +29,14 @@ router.put('/card/:id/edit', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+router.delete('/card/:id/delete', (req, res) => {
+  Card.findByIdAndRemove(req.params.id)
+  .then((result) => {
+    res.send(result);
+  })
+  .catch(err => console.log(err));
+})
+
 // Receive 5 latest cards (for viewing) *** NOT USED ***
 router.get('/latest', (req, res) => {
   Card.find().sort({ created: -1 }).limit(5)
