@@ -28,7 +28,8 @@ export default {
     }
   },
   methods: {
-    login() {
+    login(e) {
+      console.log('1', e.target.value);
       const credentials = {
         username: this.user.username,
         password: this.user.password

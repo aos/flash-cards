@@ -21,7 +21,7 @@
           <a href="#" @click="logout" class="nav-item">Logout</a>
         </div>
         <div v-else>
-          <router-link class="nav-item" to="/login" @click.native="toggleClass">Login</router-link>
+          <router-link class="nav-item" to="/login" @click.native="toggleClass" value="Hello">Login</router-link>
           <router-link class="nav-item" @click.native="toggleClass" to="/register">Register</router-link>
         </div>
       </div>
