@@ -1,0 +1,10 @@
+{
+ "name": "flash-cards",
+ "version": "1.0.0",
+ "description": "flash cards app for code study",
+ "author": "Aos",
+ "private": true,
+ "scripts": {
+   "postinstall": "npm install express"
+ }
+}
