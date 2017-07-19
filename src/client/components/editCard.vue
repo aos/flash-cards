@@ -90,7 +90,7 @@ export default {
       this.preview = !this.preview;
     },
     editCard() {
-      this.$http.put(`http://localhost:3000/api/card/${this.$route.params.id}/edit`, this.card)
+      this.$http.put(`/api/card/${this.$route.params.id}/edit`, this.card)
         .then((result) => {
           this.edited_card = result.data;
           this.submitted = true;

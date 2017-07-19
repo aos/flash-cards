@@ -38,7 +38,7 @@ const Card = require('./models/Card');
 /**
  * User Auth
 **/
-app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/] }));
+app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/, '/dist'] }));
 
 /**
  *  Routes

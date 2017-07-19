@@ -17,9 +17,19 @@ The purpose of this project is two-fold:
 - Add cards
 - View each card (front/back)
 - View list of all cards
-- Cycle randomly through cards based on tag (General, Code)
+- Cycle randomly through cards
 - Edit each card
 - Mark known/unknown
 
 ### Timeline
-Project currently under major construction.
+- [x] 7/19/2017 - Minimal viable product
+
+### Missing features (to be added at a later date) 
+- [ ] Login/Register failure error display
+- [ ] Run cards by different tags (Code, General, Random)
+- [ ] Implement spaced-repetition algorithm
+- [ ] Multiple decks per user
+- [ ] Multiple user decks
+
+### Planned:
+- [ ] Move backend to firebase 

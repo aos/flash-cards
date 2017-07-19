@@ -30,7 +30,7 @@
           <figure class="media-left">
             <p class="image is-32x32">
               <router-link :to="'/card/' + card._id + '/edit'">
-                <img src="../assets/logo.png">
+                <img src="edit.png">
               </router-link>
             </p>
           </figure>

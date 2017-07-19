@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     knowCard() {
-      this.$http.put(`http://localhost:3000/api/card/${this.$route.params.id}/edit`, { known: (this.card.known ? false : true) }, {
+      this.$http.put(`/api/card/${this.$route.params.id}/edit`, { known: (this.card.known ? false : true) }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
       })
         .then((result) => {

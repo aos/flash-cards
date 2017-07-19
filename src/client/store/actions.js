@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const registerUser = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/register', payload)
+    axios.post('/register', payload)
       .then((result) => {
         localStorage.setItem('user_id', result.data.user_id);
         localStorage.setItem('token_id', result.data.token);
@@ -14,7 +14,7 @@ export const registerUser = ({ commit }, payload) => {
 
 export const loginUser = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/login', payload)
+    axios.post('/login', payload)
       .then((result) => {
         localStorage.setItem('token_id', result.data.token);
         localStorage.setItem('user_id', result.data.user_id);
@@ -52,7 +52,7 @@ export const checkAuth = ({ commit }) => {
 }
 
 export const getAllUserCards = ({ commit }, payload) => {
-  axios.post('http://localhost:3000/api/all', payload, {
+  axios.post('/api/all', payload, {
     headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
   })
     .then((result) => {
@@ -63,7 +63,7 @@ export const getAllUserCards = ({ commit }, payload) => {
 
 export const addCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/api/add', payload,
+    axios.post('/api/add', payload,
       {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
       })
@@ -77,7 +77,7 @@ export const addCard = ({ commit }, payload) => {
 
 export const deleteCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-    axios.delete(`http://localhost:3000/api/card/${payload}/delete`,
+    axios.delete(`/api/card/${payload}/delete`,
       {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token_id')}` }
       })
@@ -97,6 +97,6 @@ export const editCard = ({ commit }, payload) => {
 
 export const knowCard = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://localhost:3000/api/:id')
+    axios.post('/api/:id')
   })
 }
