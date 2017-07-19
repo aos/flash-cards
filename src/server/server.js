@@ -5,6 +5,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const expressJWT = require('express-jwt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config({path: 'variables.env'});
 
 const app = express();
 const DIST = path.resolve(__dirname, '../../dist');
@@ -27,7 +28,7 @@ app.use(express.static(DIST));
 **/
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/cards', (err) => {
+mongoose.connect(process.env.DB, (err) => {
   if (err) console.log('DB connection error:', err);
   else console.log('DB connection successful')
 })
@@ -38,7 +39,7 @@ const Card = require('./models/Card');
 /**
  * User Auth
 **/
-app.use(expressJWT({ secret: 'bakedbread 5 ever' }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/, '/dist'] }));
+app.use(expressJWT({ secret: process.env.SECRET }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/, '/dist'] }));
 
 /**
  *  Routes
@@ -67,7 +68,7 @@ app.post('/register', (req, res, next) => {
           if (err) return next(err);
         })
           .then((data) => {
-            const myToken = jwt.sign({ user_id: data._id }, 'bakedbread 5 ever');
+            const myToken = jwt.sign({ user_id: data._id }, process.env.SECRET);
             return res.json({ username: data.username, user_id: data._id, token: myToken });
           })
           .catch(err => console.log(err));
@@ -93,7 +94,7 @@ app.post('/login', (req, res) => {
             return res.status(401).send('Invalid username and/or password');
           }
           else {
-            const myToken = jwt.sign({ user_id: user._id }, 'bakedbread 5 ever');
+            const myToken = jwt.sign({ user_id: user._id }, process.env.SECRET);
             return res.status(200).json({ username: user.username, user_id: user._id, token: myToken });
           }
         })
