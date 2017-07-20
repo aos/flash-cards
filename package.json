@@ -5,7 +5,7 @@
   "author": "Aos <aosdab@gmail.com>",
   "private": true,
   "scripts": {
-    "server": "nodemon ./src/server/server.js",
+    "start": "node ./src/server/server.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
