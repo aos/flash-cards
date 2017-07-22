@@ -13,16 +13,16 @@
       </div>
       <div v-else class="container">
         <div class="box">
-          <h1 class="title has-text-centered center-vertical is-2">{{card.front}}</h1>
+          <h1 class="title has-text-centered center-vertical is-3">{{card.front}}</h1>
         </div>
       </div>
       <div class="container has-text-centered bottom-buttons">
-        <button class="button is-medium is-info" @click.prevent="flipped = !flipped">⇆ Flip Card</button>
-        <button @click.prevent="knowCard" class="button is-medium" :class="card.known ? 'is-success' : 'is-light'">
+        <button class="button is-small is-info" @click.prevent="flipped = !flipped">⇆ Flip Card</button>
+        <button @click.prevent="knowCard" class="button is-small" :class="card.known ? 'is-success' : 'is-light'">
           <span v-if="card.known">✓ Known</span>
           <span v-else>I Know It!</span>
         </button>
-        <button @click="nextCard" class="button is-medium is-warning" v-check>Next Card →</button>
+        <button @click.prevent="nextCard" class="button is-small is-warning" v-check>Next Card →</button>
       </div>
     </div>
   </div>
@@ -56,13 +56,12 @@ export default {
     },
     nextCard() {
       const allCards = this.$store.state.allCards;
-      const total = this.$store.getters.totalCards;
-      const next = allCards[Math.floor(Math.random() * total)];
+      const next = allCards[Math.floor(Math.random() * allCards.length)];
       if (this.flipped) {
         this.flipped = false
       }
       if (this.$route.params.id === next._id) {
-        return nextCard();
+        return this.nextCard();
       }
       return this.$router.push(`/card/${next._id}`);
     }
@@ -80,10 +79,6 @@ export default {
 </script>
 
 <style scoped>
-.tabs {
-  margin-top: 20px;
-}
-
 .bottom-buttons {
   margin-bottom: 20px;
 }
@@ -91,8 +86,7 @@ export default {
 .box {
   margin: 0 auto 20px;
   height: 400px;
-  min-width: 400px;
-  width: 60%;
+  width: 80%;
 }
 
 .preserve-ws {

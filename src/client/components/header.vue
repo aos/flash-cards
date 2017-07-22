@@ -4,7 +4,7 @@
     <div class="nav has-shadow" id="header">
       <div class="nav-left">
         <router-link class="nav-item" to="/">
-          <h3>Cards</h3>
+          <h3>CS Cards</h3>
         </router-link>
       </div>
   

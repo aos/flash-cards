@@ -10,8 +10,7 @@ Back-end: Node.js (express), MongoDB
 ### Why?
 The purpose of this project is two-fold:
 1. To learn MEVN, as part of becoming a full-stack developer.
-2. To be able to create and store flash cards online, as part of my note-taking process in studying CS.  
-(I realize I can use Anki, but that defeats the purpose of #1.)
+2. To be able to create and store flash cards online, as part of my note-taking process in studying CS. Flash cards can be made with code-block formatting.
 
 ### User roles
 - Add cards
@@ -29,7 +28,7 @@ The purpose of this project is two-fold:
 - [ ] Run cards by different tags (Code, General, Random)
 - [ ] Implement spaced-repetition algorithm
 - [ ] Multiple decks per user
-- [ ] Multiple user decks
+- [ ] Shared user decks
 
 ### Planned:
 - [ ] Move backend to firebase 

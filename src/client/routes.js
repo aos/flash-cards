@@ -1,4 +1,3 @@
-import Home from './components/Home.vue';
 import Manage from './components/Manage.vue';
 import Card from './components/showCard.vue';
 import addCard from './components/addCard.vue';
