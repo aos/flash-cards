@@ -14,6 +14,10 @@
         <input type="submit" class="button is-medium is-success" value="Login">
       </form>
     </div>
+    <div id="login_warn" class="notification is-danger has-text-centered" v-if="!login_success">
+      <button @click="close" class="delete"></button>
+      Invalid username and/or password. Try again!
+    </div>
   </div>
 </template>
 
@@ -24,12 +28,12 @@ export default {
       user: {
         username: '',
         password: ''
-      }
+      },
+      login_success: true
     }
   },
   methods: {
     login(e) {
-      console.log('1', e.target.value);
       const credentials = {
         username: this.user.username,
         password: this.user.password
@@ -37,13 +41,22 @@ export default {
       this.$store.dispatch('loginUser', credentials)
       .then((result) => {
         window.location = '/';
+      },
+      (err) => {
+        this.login_success = false;
+        document.getElementById('login_warn').hidden = false;
       })
-      .catch((err) => console.log(err));
+    },
+    close(e) {
+      e.target.parentElement.hidden = true;
     }
   }
 }
 </script>
 
 <style>
-
+.notification {
+  width: 70%;
+  margin: 0 auto;
+}
 </style>

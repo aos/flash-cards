@@ -39,7 +39,7 @@ const Card = require('./models/Card');
 /**
  * User Auth
 **/
-app.use(expressJWT({ secret: process.env.SECRET }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/, '/dist'] }));
+app.use(expressJWT({ secret: process.env.SECRET }).unless({ path: ['/login', '/register', /api\/card\/\w*\/edit/, /api\/card\/\w*\/delete/, '/dist', '/favicon.ico'] }));
 
 /**
  *  Routes

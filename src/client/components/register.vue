@@ -14,6 +14,10 @@
         <input type="submit" class="button is-medium is-success" value="Register">
       </form>
     </div>
+    <div class="notification is-danger has-text-centered" v-if="!register_success">
+      <button @click="close" class="delete"></button>
+      Username taken. Try again!
+    </div>
   </div>
 </template>
 
@@ -24,16 +28,22 @@ export default {
       user: {
         username: '',
         password: ''
-      }
+      },
+      register_success: true
     }
   },
   methods: {
     register() {
       this.$store.dispatch('registerUser', this.user)
-      .then((result) => {
-        window.location = '/';
-      })
-      .catch((err) => console.log(err));
+        .then((result) => {
+          window.location = '/';
+        },
+        (err) => {
+          this.register_success = false;
+        })
+    },
+    close(e) {
+      e.target.parentElement.hidden = true;
     }
   }
 

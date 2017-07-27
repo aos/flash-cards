@@ -24,11 +24,11 @@ The purpose of this project is two-fold:
 - [x] 7/19/2017 - Minimal viable product
 
 ### Missing features (to be added at a later date) 
-- [ ] Login/Register failure error display
+- [x] Login/Register failure error display (7/27/2017)
 - [ ] Run cards by different tags (Code, General, Random)
 - [ ] Implement spaced-repetition algorithm
 - [ ] Multiple decks per user
 - [ ] Shared user decks
 
 ### Planned:
-- [ ] Move backend to firebase 
+- [ ] Use firebase as database 

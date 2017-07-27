@@ -9,6 +9,9 @@ export const registerUser = ({ commit }, payload) => {
         commit('LOGIN_SUCCESS', result.data.user_id);
         resolve(result.data);
       })
+      .catch((err) => {
+        reject(err);
+      })
   })
 }
 
@@ -22,7 +25,7 @@ export const loginUser = ({ commit }, payload) => {
         resolve(result.data);
       })
       .catch((err) => {
-        resolve(err);
+        reject(err);
       })
   })
 }
