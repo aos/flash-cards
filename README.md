@@ -3,6 +3,11 @@
 > Flash cards web app designed to aid in study  
 > Built mobile-first
 
+![Main](http://i.imgur.com/PMMDLrHm.png)
+(Main view)
+![Running a card - code formatting](http://i.imgur.com/UkHLTomm.png)
+(Card view - code formatting)
+
 ### Stack
 Front-end: Vue.js  
 Back-end: Node.js (express), MongoDB  
