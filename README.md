@@ -1,11 +1,11 @@
-## Flash Cards
+## CS Flash Cards
 
-> Flash cards web app designed to aid in study  
+> Flash cards web app designed to aid in CS study  
 > Built mobile-first
 
 ![Main](http://i.imgur.com/PMMDLrHm.png)
 (Main view)
-![Running a card - code formatting](http://i.imgur.com/UkHLTomm.png)
+![Running a card - w/ code formatting](http://i.imgur.com/UkHLTomm.png)
 (Card view - code formatting)
 
 ### Stack
@@ -35,5 +35,31 @@ The purpose of this project is two-fold:
 - [ ] Multiple decks per user
 - [ ] Shared user decks
 
-### Planned:
-- [ ] Use firebase as database 
+### Planned
+- [ ] Unit tests and E2E tests 
+- [ ] Port to firebase 
+
+### Installation (local)
+
+Install using terminal, or optionally download from link above:
+```
+git clone https://github.com/aos/flash-cards.git
+cd flash-cards
+npm install
+```
+
+- For production build:  
+`npm run build`
+
+- For development build:  
+`npm run dev`
+
+Remove `.sample` from `.env` file name.
+
+Additionally, the back-end server and `mongod` instance must be started:
+
+Run each command in its own terminal instance:  
+- Server: `npm run start`  
+- Mongo: `mongod`
+
+You should be good to go! Enjoy

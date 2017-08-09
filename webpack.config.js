@@ -4,7 +4,7 @@ var webpack = require('webpack');
 const APP_DIR = path.resolve(__dirname, 'src/client');
 const DIST_DIR = path.resolve(__dirname, 'dist');
 
-module.exports = {
+module.exports = env => ({
   entry: './src/client/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -52,5 +52,5 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
-}
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval'
+})

@@ -2,8 +2,7 @@
   "name": "flash-cards",
   "description": "flash cards in vue",
   "version": "1.0.0",
-  "author": "Aos <aosdab@gmail.com>",
-  "private": true,
+  "author": "Aos",
   "scripts": {
     "start": "node ./src/server/server.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
